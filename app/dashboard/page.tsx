@@ -139,13 +139,13 @@ export default function DashboardPage() {
   const getStatusIcon = (type: string) => {
     switch (type) {
       case "SUCCESS":
-        return <CheckCircle className="h-4 w-4 text-green-500" />
+        return <CheckCircle className="h-4 w-4 text-success" />
       case "ERROR":
-        return <XCircle className="h-4 w-4 text-red-500" />
+        return <XCircle className="h-4 w-4 text-destructive" />
       case "WARNING":
-        return <AlertCircle className="h-4 w-4 text-yellow-500" />
+        return <AlertCircle className="h-4 w-4 text-warning" />
       default:
-        return <AlertCircle className="h-4 w-4 text-blue-500" />
+        return <AlertCircle className="h-4 w-4 text-accent" />
     }
   }
 
@@ -300,8 +300,8 @@ export default function DashboardPage() {
                         )}
                       </div>
                       {tournament.winnings && tournament.winnings > 0 && (
-                        <div className="mt-4 p-3 bg-green-50 dark:bg-green-950 rounded-lg">
-                          <p className="text-green-700 dark:text-green-300 font-semibold">
+                        <div className="mt-4 p-3 bg-success/10 rounded-lg">
+                          <p className="text-success font-semibold">
                             🎉 You won ₹{tournament.winnings.toLocaleString()}!
                           </p>
                         </div>

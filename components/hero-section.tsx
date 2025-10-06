@@ -92,8 +92,8 @@ export function HeroSection() {
               <Card className="p-6 mt-8">
                 <CardContent className="p-0 space-y-4">
                   <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
-                      <Zap className="w-4 h-4 text-green-500" />
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-primary" />
                     </div>
                     <span className="font-semibold">Free Fire</span>
                   </div>

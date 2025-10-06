@@ -85,7 +85,7 @@ export default function ResetPasswordPage() {
               <span className="text-2xl font-bold">Jaipal Esports</span>
             </div>
             <div className="flex justify-center mb-4">
-              <CheckCircle className="h-16 w-16 text-green-500" />
+              <CheckCircle className="h-16 w-16 text-success" />
             </div>
             <CardTitle className="text-2xl">Password reset successful</CardTitle>
             <CardDescription>

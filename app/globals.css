@@ -45,71 +45,89 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Gaming Green Color Scheme */
+  --background: oklch(0.1 0 0);              /* Deep Black */
+  --foreground: oklch(0.98 0 0);             /* Pure White */
+  --card: oklch(0.15 0 0);                   /* Dark Charcoal */
+  --card-foreground: oklch(0.98 0 0);        /* Pure White */
+  --popover: oklch(0.15 0 0);                /* Dark Charcoal */
+  --popover-foreground: oklch(0.98 0 0);     /* Pure White */
+  --primary: oklch(0.65 0.25 140);           /* Gaming Green */
+  --primary-foreground: oklch(0.98 0 0);     /* Pure White */
+  --secondary: oklch(0.2 0 0);               /* Dark Gray */
+  --secondary-foreground: oklch(0.9 0 0);    /* Light Gray */
+  --muted: oklch(0.25 0 0);                  /* Muted Gray */
+  --muted-foreground: oklch(0.7 0 0);        /* Medium Gray */
+  --accent: oklch(0.7 0.25 280);             /* Electric Purple */
+  --accent-foreground: oklch(0.98 0 0);      /* Pure White */
+  --destructive: oklch(0.65 0.25 20);        /* Bright Red */
+  --border: oklch(0.3 0 0);                  /* Border Gray */
+  --input: oklch(0.2 0 0);                   /* Input Background */
+  --ring: oklch(0.65 0.25 140);              /* Focus Ring - Gaming Green */
+  
+  /* Chart colors for dashboard */
+  --chart-1: oklch(0.65 0.25 140);           /* Gaming Green */
+  --chart-2: oklch(0.7 0.25 280);            /* Electric Purple */
+  --chart-3: oklch(0.6 0.2 120);             /* Bright Green */
+  --chart-4: oklch(0.8 0.25 60);             /* Bright Yellow */
+  --chart-5: oklch(0.65 0.25 20);            /* Bright Red */
+  
+  /* Sidebar colors */
+  --sidebar: oklch(0.12 0 0);                /* Darker background for sidebar */
+  --sidebar-foreground: oklch(0.98 0 0);     /* Pure White */
+  --sidebar-primary: oklch(0.65 0.25 140);   /* Gaming Green */
+  --sidebar-primary-foreground: oklch(0.98 0 0); /* Pure White */
+  --sidebar-accent: oklch(0.2 0 0);          /* Dark Gray */
+  --sidebar-accent-foreground: oklch(0.9 0 0); /* Light Gray */
+  --sidebar-border: oklch(0.3 0 0);          /* Border Gray */
+  --sidebar-ring: oklch(0.65 0.25 140);      /* Focus Ring - Gaming Green */
+  
+  /* Game-specific colors */
+  --pubg-color: oklch(0.6 0.2 200);          /* PUBG Blue */
+  --freefire-color: oklch(0.65 0.25 140);    /* Free Fire Green (matches primary) */
+  --bgmi-color: oklch(0.7 0.2 60);           /* BGMI Orange */
+  --valorant-color: oklch(0.55 0.2 20);      /* Valorant Red */
+  --cs2-color: oklch(0.5 0.15 180);          /* CS2 Cyan */
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Enhanced dark mode for gaming green theme */
+  --background: oklch(0.05 0 0);             /* Even darker for true dark mode */
+  --foreground: oklch(0.98 0 0);             /* Pure White */
+  --card: oklch(0.12 0 0);                   /* Darker charcoal */
+  --card-foreground: oklch(0.98 0 0);        /* Pure White */
+  --popover: oklch(0.12 0 0);                /* Darker charcoal */
+  --popover-foreground: oklch(0.98 0 0);     /* Pure White */
+  --primary: oklch(0.7 0.3 140);             /* Brighter Gaming Green */
+  --primary-foreground: oklch(0.05 0 0);     /* Deep Black */
+  --secondary: oklch(0.18 0 0);              /* Dark Gray */
+  --secondary-foreground: oklch(0.9 0 0);    /* Light Gray */
+  --muted: oklch(0.22 0 0);                  /* Muted Gray */
+  --muted-foreground: oklch(0.65 0 0);       /* Medium Gray */
+  --accent: oklch(0.75 0.3 280);             /* Brighter Electric Purple */
+  --accent-foreground: oklch(0.05 0 0);      /* Deep Black */
+  --destructive: oklch(0.7 0.3 20);          /* Brighter Red */
+  --border: oklch(0.25 0 0);                 /* Border Gray */
+  --input: oklch(0.15 0 0);                  /* Input Background */
+  --ring: oklch(0.7 0.3 140);                /* Focus Ring - Brighter Gaming Green */
+  
+  /* Chart colors for dashboard - enhanced for dark mode */
+  --chart-1: oklch(0.7 0.3 140);             /* Brighter Gaming Green */
+  --chart-2: oklch(0.75 0.3 280);            /* Brighter Electric Purple */
+  --chart-3: oklch(0.65 0.25 120);           /* Brighter Green */
+  --chart-4: oklch(0.85 0.3 60);             /* Brighter Yellow */
+  --chart-5: oklch(0.7 0.3 20);              /* Brighter Red */
+  
+  /* Sidebar colors - enhanced for dark mode */
+  --sidebar: oklch(0.08 0 0);                /* Very dark background for sidebar */
+  --sidebar-foreground: oklch(0.98 0 0);     /* Pure White */
+  --sidebar-primary: oklch(0.7 0.3 140);     /* Brighter Gaming Green */
+  --sidebar-primary-foreground: oklch(0.05 0 0); /* Deep Black */
+  --sidebar-accent: oklch(0.18 0 0);         /* Dark Gray */
+  --sidebar-accent-foreground: oklch(0.9 0 0); /* Light Gray */
+  --sidebar-border: oklch(0.25 0 0);         /* Border Gray */
+  --sidebar-ring: oklch(0.7 0.3 140);        /* Focus Ring - Brighter Gaming Green */
 }
 
 @layer base {
@@ -118,5 +136,104 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Game-specific color utilities */
+  .text-pubg { color: oklch(0.6 0.2 200); }
+  .text-freefire { color: oklch(0.65 0.25 140); }
+  .text-bgmi { color: oklch(0.7 0.2 60); }
+  .text-valorant { color: oklch(0.55 0.2 20); }
+  .text-cs2 { color: oklch(0.5 0.15 180); }
+  
+  .bg-pubg { background-color: oklch(0.6 0.2 200); }
+  .bg-freefire { background-color: oklch(0.65 0.25 140); }
+  .bg-bgmi { background-color: oklch(0.7 0.2 60); }
+  .bg-valorant { background-color: oklch(0.55 0.2 20); }
+  .bg-cs2 { background-color: oklch(0.5 0.15 180); }
+  
+  .border-pubg { border-color: oklch(0.6 0.2 200); }
+  .border-freefire { border-color: oklch(0.65 0.25 140); }
+  .border-bgmi { border-color: oklch(0.7 0.2 60); }
+  .border-valorant { border-color: oklch(0.55 0.2 20); }
+  .border-cs2 { border-color: oklch(0.5 0.15 180); }
+  
+  /* Gaming green glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px oklch(0.65 0.25 140 / 0.4);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 20px oklch(0.7 0.25 280 / 0.4);
+  }
+  
+  .glow-success {
+    box-shadow: 0 0 20px oklch(0.6 0.2 120 / 0.4);
+  }
+  
+  .glow-warning {
+    box-shadow: 0 0 20px oklch(0.8 0.25 60 / 0.4);
+  }
+  
+  .glow-destructive {
+    box-shadow: 0 0 20px oklch(0.65 0.25 20 / 0.4);
+  }
+  
+  /* Gaming text effects */
+  .text-gaming-primary {
+    color: oklch(0.65 0.25 140);
+    text-shadow: 0 0 10px oklch(0.65 0.25 140 / 0.5);
+  }
+  
+  .text-gaming-accent {
+    color: oklch(0.7 0.25 280);
+    text-shadow: 0 0 10px oklch(0.7 0.25 280 / 0.5);
+  }
+  
+  /* Gaming gradients */
+  .bg-gaming-gradient {
+    background: linear-gradient(135deg, 
+      oklch(0.65 0.25 140) 0%, 
+      oklch(0.7 0.25 280) 50%, 
+      oklch(0.6 0.2 120) 100%);
+  }
+  
+  .bg-primary-gradient {
+    background: linear-gradient(135deg, 
+      oklch(0.65 0.25 140) 0%, 
+      oklch(0.7 0.25 280) 100%);
+  }
+  
+  .bg-green-gradient {
+    background: linear-gradient(135deg, 
+      oklch(0.7 0.3 140) 0%, 
+      oklch(0.65 0.25 140) 50%, 
+      oklch(0.6 0.2 140) 100%);
+  }
+  
+  /* Gaming border effects */
+  .border-gaming {
+    border: 2px solid oklch(0.65 0.25 140);
+    box-shadow: 0 0 10px oklch(0.65 0.25 140 / 0.3);
+  }
+  
+  .border-electric {
+    border: 2px solid oklch(0.7 0.25 280);
+    box-shadow: 0 0 10px oklch(0.7 0.25 280 / 0.3);
+  }
+  
+  /* Energy effects */
+  .energy-pulse {
+    animation: energy-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes energy-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 5px oklch(0.65 0.25 140 / 0.3);
+    }
+    50% { 
+      box-shadow: 0 0 20px oklch(0.65 0.25 140 / 0.6);
+    }
   }
 }

@@ -156,7 +156,7 @@ export default function ProfilePage() {
   const getKYCStatusBadge = (status: string) => {
     switch (status) {
       case "APPROVED":
-        return <Badge variant="default" className="bg-green-500">Verified</Badge>
+        return <Badge variant="default" className="bg-success">Verified</Badge>
       case "PENDING":
         return <Badge variant="secondary">Pending Review</Badge>
       case "REJECTED":
@@ -169,13 +169,13 @@ export default function ProfilePage() {
   const getKYCStatusIcon = (status: string) => {
     switch (status) {
       case "APPROVED":
-        return <CheckCircle className="h-5 w-5 text-green-500" />
+        return <CheckCircle className="h-5 w-5 text-success" />
       case "PENDING":
-        return <AlertCircle className="h-5 w-5 text-yellow-500" />
+        return <AlertCircle className="h-5 w-5 text-warning" />
       case "REJECTED":
-        return <AlertCircle className="h-5 w-5 text-red-500" />
+        return <AlertCircle className="h-5 w-5 text-destructive" />
       default:
-        return <AlertCircle className="h-5 w-5 text-gray-500" />
+        return <AlertCircle className="h-5 w-5 text-muted-foreground" />
     }
   }
 
@@ -272,7 +272,7 @@ export default function ProfilePage() {
                       <span>{profile.email}</span>
                       <div className="ml-auto flex items-center gap-2">
                         {profile.emailVerified ? (
-                          <Badge variant="default" className="bg-green-500">
+                          <Badge variant="default" className="bg-success">
                             <CheckCircle className="h-3 w-3 mr-1" />
                             Verified
                           </Badge>
@@ -333,7 +333,7 @@ export default function ProfilePage() {
                       <Shield className="h-4 w-4 text-muted-foreground" />
                       <span className="capitalize">{profile.role.toLowerCase()}</span>
                       {profile.isVerified && (
-                        <Badge variant="default" className="bg-green-500 ml-auto">
+                        <Badge variant="default" className="bg-success ml-auto">
                           Verified
                         </Badge>
                       )}

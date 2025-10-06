@@ -15,7 +15,7 @@ export function Footer() {
               India&apos;s premier eSports platform for legal, regulated gaming tournaments.
             </p>
             <div className="flex items-center space-x-2 text-sm">
-              <Shield className="w-4 h-4 text-green-500" />
+              <Shield className="w-4 h-4 text-primary" />
               <span>18+ Only • Legal Gaming</span>
             </div>
           </div>

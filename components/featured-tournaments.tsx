@@ -21,7 +21,7 @@ const featuredTournaments = [
     status: "REGISTRATION_OPEN",
     banner: "/api/placeholder/400/200",
     gameIcon: Gamepad2,
-    gameColor: "text-blue-500"
+    gameColor: "text-pubg"
   },
   {
     id: "2", 
@@ -36,7 +36,7 @@ const featuredTournaments = [
     status: "REGISTRATION_OPEN",
     banner: "/api/placeholder/400/200",
     gameIcon: Zap,
-    gameColor: "text-green-500"
+    gameColor: "text-freefire"
   },
   {
     id: "3",
@@ -51,7 +51,7 @@ const featuredTournaments = [
     status: "UPCOMING",
     banner: "/api/placeholder/400/200",
     gameIcon: Gamepad2,
-    gameColor: "text-orange-500"
+    gameColor: "text-bgmi"
   }
 ]
 
@@ -100,11 +100,11 @@ export function FeaturedTournaments() {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center space-x-2">
-                      <Trophy className="w-4 h-4 text-yellow-500" />
+                      <Trophy className="w-4 h-4 text-warning" />
                       <span>₹{tournament.prizePool.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Users className="w-4 h-4 text-blue-500" />
+                      <Users className="w-4 h-4 text-accent" />
                       <span>{tournament.currentPlayers}/{tournament.maxPlayers}</span>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -112,7 +112,7 @@ export function FeaturedTournaments() {
                       <span>₹{tournament.entryFee}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Calendar className="w-4 h-4 text-green-500" />
+                      <Calendar className="w-4 h-4 text-primary" />
                       <span>{formatDate(startDate)}</span>
                     </div>
                   </div>

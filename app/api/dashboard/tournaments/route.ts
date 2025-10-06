@@ -23,8 +23,7 @@ export async function GET(request: NextRequest) {
 
     // Get user's payouts for winnings
     const payouts = await prisma.payout.findMany({
-      where: { userId: session.user.id },
-      include: { tournament: true }
+      where: { userId: session.user.id }
     })
 
     // Combine registrations with payout information
