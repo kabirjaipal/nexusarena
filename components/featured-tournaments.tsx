@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Users, Trophy, Gamepad2, Zap, Clock } from "lucide-react"
+import { formatDate, formatDateTime } from "@/lib/date-utils"
 import Link from "next/link"
 
 const featuredTournaments = [
@@ -112,13 +113,13 @@ export function FeaturedTournaments() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Calendar className="w-4 h-4 text-green-500" />
-                      <span>{startDate.toLocaleDateString()}</span>
+                      <span>{formatDate(startDate)}</span>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                     <Clock className="w-4 h-4" />
-                    <span>Starts {startDate.toLocaleDateString()} at {startDate.toLocaleTimeString()}</span>
+                    <span>Starts {formatDateTime(startDate)}</span>
                   </div>
                 </CardContent>
                 
