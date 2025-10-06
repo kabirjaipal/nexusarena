@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Jaipal Esports
 
-## Getting Started
+Build a full-stack, production-ready eSports tournament registration platform for games like PUBG and Free Fire (assume only legal games are selectable in India). Use the following stack:
 
-First, run the development server:
+- Frontend: Next.js (latest), Tailwind CSS, shadcn/ui for components, React-Icons.
+- Backend: Next.js API routes, Prisma ORM with PostgreSQL.
+- Payment: Integrate the Razorpay payment gateway (best for India, easy to implement, supports UPI/cards/wallets and payouts).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Essential Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Landing/Home page
+   - Modern Esports Landing page
+   - Display upcoming and featured tournaments
+   - Highlights for PUBG/Free Fire—show game legality status
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Auth
+   - Sign up/in with email/password using NextAuth.js
+   - Optional: OAuth with Google and discord
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. User Dashboard
+   - View joined tournaments, winnings, payment history
+   - Personal profile and KYC upload page
 
-## Learn More
+4. Tournament Management
+   - List all tournaments per game (title, entry fee, prize, date/time, rules)
+   - Register/buy-in through integrated payment gateway (Razorpay)
+   - Auto-register user with transaction confirmation
+   - Registration closes at capacity or pre-set time
+   - Admin can create, edit, and delete tournaments via an /admin route
 
-To learn more about Next.js, take a look at the following resources:
+5. Player Matchmaking/Bracket
+   - Show user which match/team they are assigned to
+   - Display schedules, match details
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+6. Prize Payout
+   - Admin uploads results
+   - Winners can receive payouts via Razorpay payouts (mark payout as done, no illegal betting/withdrawal features)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+7. Notifications
+   - In-app notifications for match times, results, rewards
 
-## Deploy on Vercel
+8. Security/Compliance
+   - Enforce 18+ on signup
+   - Add legal disclaimer and privacy policy
+   - Don’t allow tournaments for banned games (block Free Fire if illegal)
+   - Admin panel secured by RBAC (role-based access)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+9. Responsive UI
+   - Use Tailwind + shadcn/ui for mobile-first, accessible design
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Instructions
+
+- Scaffold project structure and database schema in Prisma: Users, Tournaments, Registrations, Matches, Payments, Payouts, Notifications, User KYC.
+- Use best colors for this site and set color variable in gloabls.css like primary secondary etc so we can change color later in css file and it affect in whole site
+- Each Table in database should have prefixs like m_ , p_ , t_ etc............
+- Integrate Razorpay for payments; provide test/demo keys and stub payout admin actions.
+- Clearly document all env variables and config details.
+- Cover full CRUD in admin: tournaments, matches, payments, users.
+- Show sensible error/empty/loading states with shadcn/ui.
+- Include dummy legal text, and sample documentation for deployment (Vercel/ any cloud).
+- Use React-Icons for clear status and action cues throughout.
+- Provide working seed data and/or a script for easy local setup.
+- always use shadcn commands to get component don't code it mannually 
+
+Deliver fully working code, cleanly structured, that can be deployed right away, with a README for setup and deployment, and brief in-code comments for custom logic.
