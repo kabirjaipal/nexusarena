@@ -3,10 +3,83 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Gamepad2, Trophy, Users, Zap, Shield, Star } from "lucide-react"
+import { Gamepad2, Trophy, Users, Zap, Shield, Star, Loader2 } from "lucide-react"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+
+interface TournamentStats {
+  totalTournaments: number
+  activeTournaments: number
+  totalPlayers: number
+  totalPrizePool: number
+}
+
+interface FeaturedTournament {
+  id: string
+  slug: string
+  title: string
+  game: string
+  entryFee: number
+  prizePool: number
+  maxPlayers: number
+  currentPlayers: number
+  status: string
+}
 
 export function HeroSection() {
+  const [stats, setStats] = useState<TournamentStats | null>(null)
+  const [featuredTournaments, setFeaturedTournaments] = useState<FeaturedTournament[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        setIsLoading(true)
+        
+        // Fetch tournament stats
+        const statsResponse = await fetch('/api/tournaments/stats')
+        if (statsResponse.ok) {
+          const statsData = await statsResponse.json()
+          setStats(statsData)
+        }
+
+        // Fetch featured tournaments for hero cards
+        const tournamentsResponse = await fetch('/api/tournaments?featured=true&limit=2')
+        if (tournamentsResponse.ok) {
+          const tournamentsData = await tournamentsResponse.json()
+          setFeaturedTournaments(tournamentsData)
+        }
+      } catch (error) {
+        console.error('Error fetching hero data:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchHeroData()
+  }, [])
+
+  const getGameIcon = (game: string) => {
+    switch (game) {
+      case 'FREE_FIRE':
+        return Zap
+      default:
+        return Gamepad2
+    }
+  }
+
+  const getGameBadgeVariant = (index: number) => {
+    return index === 0 ? "secondary" : "outline"
+  }
+
+  const getGameBadgeIcon = (index: number) => {
+    return index === 0 ? Star : Users
+  }
+
+  const getGameBadgeText = (index: number) => {
+    return index === 0 ? "Featured" : "Popular"
+  }
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20">
       <div className="container mx-auto px-4">
@@ -44,11 +117,23 @@ export function HeroSection() {
 
             <div className="grid grid-cols-3 gap-8 pt-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">500+</div>
+                <div className="text-2xl font-bold text-primary">
+                  {isLoading ? (
+                    <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+                  ) : (
+                    `${stats?.totalPlayers || 0}+`
+                  )}
+                </div>
                 <div className="text-sm text-muted-foreground">Active Players</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">₹50K+</div>
+                <div className="text-2xl font-bold text-primary">
+                  {isLoading ? (
+                    <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+                  ) : (
+                    `₹${Math.round((stats?.totalPrizePool || 0) / 1000)}K+`
+                  )}
+                </div>
                 <div className="text-sm text-muted-foreground">Prize Pool</div>
               </div>
               <div className="text-center">
@@ -59,65 +144,49 @@ export function HeroSection() {
           </div>
 
           <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              <Card className="p-6">
-                <CardContent className="p-0 space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Gamepad2 className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="font-semibold">PUBG Mobile</span>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Entry Fee</span>
-                      <span className="font-semibold">₹100</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Prize Pool</span>
-                      <span className="font-semibold">₹5,000</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Players</span>
-                      <span className="font-semibold">50/100</span>
-                    </div>
-                  </div>
-                  <Badge variant="secondary" className="w-fit">
-                    <Star className="w-3 h-3 mr-1" />
-                    Featured
-                  </Badge>
-                </CardContent>
-              </Card>
-
-              <Card className="p-6 mt-8">
-                <CardContent className="p-0 space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Zap className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="font-semibold">Free Fire</span>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Entry Fee</span>
-                      <span className="font-semibold">₹50</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Prize Pool</span>
-                      <span className="font-semibold">₹2,500</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Players</span>
-                      <span className="font-semibold">25/50</span>
-                    </div>
-                  </div>
-                  <Badge variant="outline" className="w-fit">
-                    <Users className="w-3 h-3 mr-1" />
-                    Popular
-                  </Badge>
-                </CardContent>
-              </Card>
-            </div>
+            {isLoading ? (
+              <div className="flex justify-center items-center h-64">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                {featuredTournaments.slice(0, 2).map((tournament, index) => {
+                  const GameIcon = getGameIcon(tournament.game)
+                  const BadgeIcon = getGameBadgeIcon(index)
+                  
+                  return (
+                    <Card key={tournament.id} className={`p-6 ${index === 1 ? 'mt-8' : ''}`}>
+                      <CardContent className="p-0 space-y-4">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                            <GameIcon className="w-4 h-4 text-primary" />
+                          </div>
+                          <span className="font-semibold">{tournament.game}</span>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span>Entry Fee</span>
+                            <span className="font-semibold">₹{tournament.entryFee}</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span>Prize Pool</span>
+                            <span className="font-semibold">₹{tournament.prizePool.toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span>Players</span>
+                            <span className="font-semibold">{tournament.currentPlayers}/{tournament.maxPlayers}</span>
+                          </div>
+                        </div>
+                        <Badge variant={getGameBadgeVariant(index)} className="w-fit">
+                          <BadgeIcon className="w-3 h-3 mr-1" />
+                          {getGameBadgeText(index)}
+                        </Badge>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
+              </div>
+            )}
 
             <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl" />
             <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl" />

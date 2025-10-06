@@ -109,6 +109,7 @@ model Notification {
 model Tournament {
   id          String            @id @default(cuid())
   title       String
+  slug        String            @unique
   description String            @db.Text
   game        GameType
   entryFee    Decimal           @db.Decimal(10, 2)

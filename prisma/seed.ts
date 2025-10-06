@@ -106,6 +106,15 @@ function generatePANNumber(): string {
   return pan
 }
 
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .trim()
+}
+
 async function main() {
   console.log('🌱 Starting comprehensive database seed...')
 
@@ -188,6 +197,7 @@ async function main() {
   for (let i = 0; i < 15; i++) {
     const game = getRandomElement(games)
     const title = tournamentTitles[i] || `${game} Tournament ${i + 1}`
+    const slug = generateSlug(title)
     const description = getRandomElement(tournamentDescriptions)
     const entryFee = Math.floor(Math.random() * 500) + 50 // 50-550
     const prizePool = entryFee * (Math.floor(Math.random() * 50) + 20) // 20-70x entry fee
@@ -203,6 +213,7 @@ async function main() {
     const tournament = await prisma.tournament.create({
       data: {
         title: title,
+        slug: slug,
         description: description,
         game: game,
         entryFee: entryFee,
@@ -223,7 +234,7 @@ async function main() {
 6. Top players will receive prizes
 7. Registration fee is non-refundable
       `.trim(),
-        banner: `/api/placeholder/400/200?t=${i}`,
+        banner: `https://picsum.photos/400/200?random=${i}`,
       },
     })
     tournaments.push(tournament)
