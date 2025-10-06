@@ -37,9 +37,14 @@ export async function POST(request: NextRequest) {
     //   include: { user: true }
     // })
     
-    // For demo, we'll use a test user
+    // In a real app, you would find the user by token from a password reset table
+    // For now, we'll find any user (this should be replaced with proper token validation)
     const testUser = await prisma.user.findFirst({
-      where: { email: "user@jaipalesports.com" }
+      where: { 
+        email: {
+          contains: "@jaipalesports.com"
+        }
+      }
     })
     
     if (!testUser) {
