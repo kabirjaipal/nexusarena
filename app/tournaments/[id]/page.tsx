@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Calendar, Users, Trophy, Gamepad2, Zap, Clock, Loader2, MapPin, User, Award } from "lucide-react"
+import { Calendar, Users, Trophy, Gamepad2, Zap, Clock, Loader2, MapPin, User, Award, CheckCircle } from "lucide-react"
 import { formatDate, formatDateTime } from "@/lib/date-utils"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
@@ -116,6 +116,7 @@ export default function TournamentDetailPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isRegistering, setIsRegistering] = useState(false)
+  const [isRegistered, setIsRegistered] = useState(false)
 
   useEffect(() => {
     const fetchTournament = async () => {
@@ -130,6 +131,12 @@ export default function TournamentDetailPage() {
         
         const data = await response.json()
         setTournament(data)
+        
+        // Check if user is already registered
+        if (session?.user?.id) {
+          const isUserRegistered = data.registrations.some((reg: any) => reg.userId === session.user.id)
+          setIsRegistered(isUserRegistered)
+        }
       } catch (err) {
         console.error('Error fetching tournament:', err)
         setError(err instanceof Error ? err.message : 'Failed to load tournament')
@@ -151,11 +158,80 @@ export default function TournamentDetailPage() {
 
     try {
       setIsRegistering(true)
-      // TODO: Implement tournament registration API
-      toast.success("Registration successful!")
+      
+      // Create payment order
+      const response = await fetch(`/api/tournaments/${tournament.slug}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({})
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to create payment order')
+      }
+
+      const { orderId, amount, currency, paymentId, key } = await response.json()
+
+      // Load Razorpay script
+      const script = document.createElement('script')
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+      script.onload = () => {
+        const options = {
+          key: key,
+          amount: amount,
+          currency: currency,
+          name: 'Jaipal Esports',
+          description: `Registration for ${tournament.title}`,
+          order_id: orderId,
+          handler: async function (response: any) {
+            try {
+              // Verify payment
+              const verifyResponse = await fetch(`/api/tournaments/${tournament.slug}/register`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  paymentId,
+                  razorpayPaymentId: response.razorpay_payment_id,
+                  razorpayOrderId: response.razorpay_order_id,
+                  razorpaySignature: response.razorpay_signature
+                })
+              })
+
+              if (verifyResponse.ok) {
+                toast.success("Registration successful!")
+                // Refresh tournament data
+                window.location.reload()
+              } else {
+                const error = await verifyResponse.json()
+                toast.error(error.error || "Payment verification failed")
+              }
+            } catch (error) {
+              console.error('Payment verification error:', error)
+              toast.error("Payment verification failed")
+            }
+          },
+          prefill: {
+            name: session.user?.name || '',
+            email: session.user?.email || '',
+          },
+          theme: {
+            color: '#2563eb'
+          }
+        }
+
+        const rzp = new (window as any).Razorpay(options)
+        rzp.open()
+      }
+      document.body.appendChild(script)
+
     } catch (error) {
       console.error('Registration error:', error)
-      toast.error("Failed to register for tournament")
+      toast.error(error instanceof Error ? error.message : "Failed to register for tournament")
     } finally {
       setIsRegistering(false)
     }
@@ -342,24 +418,31 @@ export default function TournamentDetailPage() {
                   </div>
                 </div>
 
-                <Button 
-                  className="w-full" 
-                  disabled={!canRegister || isRegistering}
-                  onClick={handleRegister}
-                >
-                  {isRegistering ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Registering...
-                    </>
-                  ) : !session ? (
-                    "Sign In to Register"
-                  ) : !canRegister ? (
-                    tournament.currentPlayers >= tournament.maxPlayers ? "Tournament Full" : "Registration Closed"
-                  ) : (
-                    "Register Now"
-                  )}
-                </Button>
+                {isRegistered ? (
+                  <Button className="w-full" disabled>
+                    <CheckCircle className="h-4 w-4 mr-2" />
+                    Already Registered
+                  </Button>
+                ) : (
+                  <Button 
+                    className="w-full" 
+                    disabled={!canRegister || isRegistering}
+                    onClick={handleRegister}
+                  >
+                    {isRegistering ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Registering...
+                      </>
+                    ) : !session ? (
+                      "Sign In to Register"
+                    ) : !canRegister ? (
+                      tournament.currentPlayers >= tournament.maxPlayers ? "Tournament Full" : "Registration Closed"
+                    ) : (
+                      "Register Now"
+                    )}
+                  </Button>
+                )}
               </CardContent>
             </Card>
 
