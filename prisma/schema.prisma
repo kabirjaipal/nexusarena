@@ -12,3 +12,264 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// User Management Models (m_ prefix)
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  password      String?
+  age           Int?
+  phone         String?
+  isVerified    Boolean   @default(false)
+  isBlocked     Boolean   @default(false)
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  registrations Registration[]
+  payments      Payment[]
+  payouts       Payout[]
+  notifications Notification[]
+  kyc           UserKYC?
+
+  @@map("m_users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("m_accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("m_sessions")
+}
+
+model UserKYC {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  fullName    String
+  dateOfBirth DateTime
+  address     String
+  city        String
+  state       String
+  pincode     String
+  idType      String   // Aadhar, PAN, etc.
+  idNumber    String
+  idDocument  String   // File path
+  addressProof String  // File path
+  status      KYCStatus @default(PENDING)
+  submittedAt DateTime @default(now())
+  verifiedAt  DateTime?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("m_user_kyc")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      NotificationType @default(INFO)
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("m_notifications")
+}
+
+// Tournament Models (t_ prefix)
+model Tournament {
+  id          String            @id @default(cuid())
+  title       String
+  description String            @db.Text
+  game        GameType
+  entryFee    Decimal           @db.Decimal(10, 2)
+  prizePool   Decimal           @db.Decimal(10, 2)
+  maxPlayers  Int
+  minPlayers  Int
+  startDate   DateTime
+  endDate     DateTime
+  registrationStart DateTime
+  registrationEnd   DateTime
+  status      TournamentStatus  @default(UPCOMING)
+  rules       String            @db.Text
+  banner      String?
+  isActive    Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relations
+  registrations Registration[]
+  matches       Match[]
+
+  @@map("t_tournaments")
+}
+
+model Registration {
+  id           String             @id @default(cuid())
+  userId       String
+  tournamentId String
+  status       RegistrationStatus @default(PENDING)
+  registeredAt DateTime           @default(now())
+  paymentId    String?            @unique
+
+  // Relations
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  payment    Payment?   @relation(fields: [paymentId], references: [id])
+
+  @@unique([userId, tournamentId])
+  @@map("t_registrations")
+}
+
+model Match {
+  id           String      @id @default(cuid())
+  tournamentId String
+  round        Int
+  matchNumber  Int
+  player1Id    String?
+  player2Id    String?
+  winnerId     String?
+  status       MatchStatus @default(SCHEDULED)
+  scheduledAt  DateTime?
+  startedAt    DateTime?
+  endedAt      DateTime?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  // Relations
+  tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+
+  @@map("t_matches")
+}
+
+// Payment Models (p_ prefix)
+model Payment {
+  id            String        @id @default(cuid())
+  userId        String
+  tournamentId  String?
+  amount        Decimal       @db.Decimal(10, 2)
+  currency      String        @default("INR")
+  status        PaymentStatus @default(PENDING)
+  razorpayId    String?
+  razorpayOrderId String?
+  method        String?
+  description   String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  registration Registration?
+
+  @@map("p_payments")
+}
+
+model Payout {
+  id            String       @id @default(cuid())
+  userId        String
+  tournamentId  String
+  amount        Decimal      @db.Decimal(10, 2)
+  position      Int
+  status        PayoutStatus @default(PENDING)
+  razorpayId    String?
+  processedAt   DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("p_payouts")
+}
+
+// Enums
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum KYCStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum NotificationType {
+  INFO
+  SUCCESS
+  WARNING
+  ERROR
+}
+
+enum GameType {
+  PUBG
+  FREE_FIRE
+  BGMI
+  VALORANT
+  CS2
+}
+
+enum TournamentStatus {
+  UPCOMING
+  REGISTRATION_OPEN
+  REGISTRATION_CLOSED
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+enum RegistrationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  REFUNDED
+}
+
+enum MatchStatus {
+  SCHEDULED
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum PayoutStatus {
+  PENDING
+  PROCESSED
+  FAILED
+}

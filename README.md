@@ -14,7 +14,7 @@ Build a full-stack, production-ready eSports tournament registration platform fo
    - Highlights for PUBG/Free Fire—show game legality status
 
 2. Auth
-   - Sign up/in with email/password using NextAuth.js
+   - Sign up/in with email/password using next-auth
    - Optional: OAuth with Google and discord
 
 3. User Dashboard
@@ -52,7 +52,7 @@ Build a full-stack, production-ready eSports tournament registration platform fo
 
 - Scaffold project structure and database schema in Prisma: Users, Tournaments, Registrations, Matches, Payments, Payouts, Notifications, User KYC.
 - Use best colors for this site and set color variable in gloabls.css like primary secondary etc so we can change color later in css file and it affect in whole site
-- Each Table in database should have prefixs like m_ , p_ , t_ etc............
+- Each Table in database should have prefixs like m_ , p_ , t_ etc............ but their modal name will be in normal like prisma rules no prefixes
 - Integrate Razorpay for payments; provide test/demo keys and stub payout admin actions.
 - Clearly document all env variables and config details.
 - Cover full CRUD in admin: tournaments, matches, payments, users.
