@@ -108,7 +108,7 @@ export function Header() {
                     KYC Verification
                   </Link>
                 </DropdownMenuItem>
-                {(session.user as any)?.role === "ADMIN" && (
+                {(session.user as { role?: string })?.role === "ADMIN" && (
                   <DropdownMenuItem asChild>
                     <Link href="/admin" className="flex items-center">
                       <Crown className="w-4 h-4 mr-2" />

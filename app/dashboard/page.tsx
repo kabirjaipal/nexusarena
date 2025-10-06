@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { 
   Trophy, 
-  Calendar, 
   Users, 
   DollarSign, 
   Gamepad2, 
@@ -20,7 +19,7 @@ import {
   XCircle,
   Plus
 } from "lucide-react"
-import { formatDate, formatDateTime } from "@/lib/date-utils"
+import { formatDate } from "@/lib/date-utils"
 import Link from "next/link"
 import { toast } from "sonner"
 

@@ -102,9 +102,10 @@ export default function ChangePasswordPage() {
 
       setIsSuccess(true)
       toast.success("Password changed successfully!")
-    } catch (error: any) {
-      setError(error.message)
-      toast.error(error.message)
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred'
+      setError(errorMessage)
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Gamepad2, Mail, Phone, MapPin, Shield, FileText, Users } from "lucide-react"
+import { Gamepad2, Mail, MapPin, Shield } from "lucide-react"
 
 export function Footer() {
   return (

@@ -137,8 +137,9 @@ export default function ProfilePage() {
       setProfile(updatedProfile)
       setIsEditing(false)
       toast.success("Profile updated successfully!")
-    } catch (error: any) {
-      toast.error(error.message)
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred'
+      toast.error(errorMessage)
     } finally {
       setIsSaving(false)
     }

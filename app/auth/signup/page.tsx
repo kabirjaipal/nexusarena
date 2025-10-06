@@ -83,9 +83,10 @@ export default function SignUpPage() {
 
       toast.success("Account created successfully! Please sign in.")
       router.push("/auth/signin")
-    } catch (error: any) {
-      setError(error.message)
-      toast.error(error.message)
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred'
+      setError(errorMessage)
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }

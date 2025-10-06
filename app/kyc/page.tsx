@@ -16,10 +16,8 @@ import {
   Upload, 
   CheckCircle, 
   AlertCircle, 
-  FileText,
   User,
   MapPin,
-  Calendar,
   CreditCard
 } from "lucide-react"
 import { toast } from "sonner"
@@ -186,9 +184,10 @@ export default function KYCPage() {
 
       toast.success("KYC submitted successfully! We'll review it and notify you.")
       fetchKYCData() // Refresh KYC data
-    } catch (error: any) {
-      setError(error.message)
-      toast.error(error.message)
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred'
+      setError(errorMessage)
+      toast.error(errorMessage)
     } finally {
       setIsSubmitting(false)
     }
