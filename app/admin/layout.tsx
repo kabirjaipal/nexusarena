@@ -138,7 +138,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Crown className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-foreground">Jaipal Esports</h1>
+                <h1 className="text-lg font-bold text-foreground">Nexus Arena</h1>
                 <p className="text-xs text-muted-foreground">Admin Panel</p>
               </div>
             </div>
@@ -244,7 +244,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   <Crown className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <h1 className="text-lg font-bold text-foreground">Jaipal Esports</h1>
+                  <h1 className="text-lg font-bold text-foreground">Nexus Arena</h1>
                   <p className="text-xs text-muted-foreground">Admin Panel</p>
                 </div>
               </div>

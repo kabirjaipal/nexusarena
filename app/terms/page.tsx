@@ -22,7 +22,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground leading-relaxed">
-                By accessing or using Jaipal Esports, you agree to be bound by these Terms of Service. If you do not agree to all of these terms, do not use our platform. We reserve the right to modify these terms at any time, and your continued use of the service constitutes acceptance of those changes.
+                By accessing or using Nexus Arena, you agree to be bound by these Terms of Service. If you do not agree to all of these terms, do not use our platform. We reserve the right to modify these terms at any time, and your continued use of the service constitutes acceptance of those changes.
               </p>
             </CardContent>
           </Card>
@@ -36,7 +36,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground leading-relaxed">
-                Jaipal Esports maintains a zero-tolerance policy towards cheating, hacking, or any form of unsportsmanlike conduct. Users found using third-party software to gain an unfair advantage will be permanently banned, and any winnings will be forfeited.
+                Nexus Arena maintains a zero-tolerance policy towards cheating, hacking, or any form of unsportsmanlike conduct. Users found using third-party software to gain an unfair advantage will be permanently banned, and any winnings will be forfeited.
               </p>
             </CardContent>
           </Card>
@@ -73,7 +73,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground leading-relaxed">
-                Jaipal Esports is not responsible for technical issues, internet connectivity problems, or game-specific bugs that may affect tournament outcomes. Matches will be decided based on official game results and admin discretion.
+                Nexus Arena is not responsible for technical issues, internet connectivity problems, or game-specific bugs that may affect tournament outcomes. Matches will be decided based on official game results and admin discretion.
               </p>
             </CardContent>
           </Card>

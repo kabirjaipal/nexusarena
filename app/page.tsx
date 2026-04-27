@@ -93,7 +93,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-4xl font-bold leading-tight">Built for Players, <br />Powered by Trust.</h2>
                 <p className="text-muted-foreground">
-                  Jaipal Esports uses state-of-the-art security to ensure every tournament is fair, every payment is secure, and every withdrawal is fast.
+                  Nexus Arena uses state-of-the-art security to ensure every tournament is fair, every payment is secure, and every withdrawal is fast.
                 </p>
                 <div className="flex gap-4 pt-4">
                   <Button size="lg" asChild>

@@ -64,7 +64,7 @@ export default function AboutPage() {
             The Future of <span className="text-primary">Indian Esports</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
-            Jaipal Esports is India&apos;s premier tournament orchestration platform. We bridge the gap between amateur talent and professional gaming through seamless, secure, and competitive infrastructure.
+            Nexus Arena is India&apos;s premier tournament orchestration platform. We bridge the gap between amateur talent and professional gaming through seamless, secure, and competitive infrastructure.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {stats.map((stat, i) => (
@@ -118,7 +118,7 @@ export default function AboutPage() {
                   <p className="text-sm italic font-medium">
                     &quot;Gaming is no longer just a hobby; it&apos;s a profession. We provide the arena for you to prove it.&quot;
                   </p>
-                  <p className="text-xs text-primary mt-2 font-bold">— Jaipal Esports Leadership</p>
+                  <p className="text-xs text-primary mt-2 font-bold">— Nexus Arena Leadership</p>
                </div>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Jaipal Esports?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Nexus Arena?</h2>
             <p className="text-muted-foreground">The core pillars that make us the most trusted platform in India.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

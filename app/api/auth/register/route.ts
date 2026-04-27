@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     await prisma.notification.create({
       data: {
         userId: user.id,
-        title: "Welcome to Jaipal Esports!",
+        title: "Welcome to Nexus Arena!",
         message: "Thank you for joining our platform. Start exploring tournaments and compete for amazing prizes!",
         type: "SUCCESS",
       }

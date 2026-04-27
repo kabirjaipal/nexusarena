@@ -51,7 +51,7 @@ const tournamentDescriptions = [
 ]
 
 const notificationTitles = [
-  'Welcome to Jaipal Esports!', 'New Tournament Available', 'Registration Confirmed', 'Payment Successful',
+  'Welcome to Nexus Arena!', 'New Tournament Available', 'Registration Confirmed', 'Payment Successful',
   'Tournament Starting Soon', 'You Won!', 'KYC Approved', 'Tournament Cancelled', 'Prize Money Credited',
   'New Season Started', 'Maintenance Notice', 'Special Offer Available', 'Leaderboard Updated',
   'Match Schedule Released', 'Registration Deadline Approaching'
@@ -137,7 +137,7 @@ async function main() {
   
   const superAdmin = await prisma.user.create({
     data: {
-      email: 'superadmin@jaipalesports.com',
+      email: 'superadmin@nexusarena.com',
       name: 'Super Admin',
       password: adminPassword,
       age: 30,
@@ -150,7 +150,7 @@ async function main() {
 
   const admin = await prisma.user.create({
     data: {
-      email: 'admin@jaipalesports.com',
+      email: 'admin@nexusarena.com',
       name: 'Admin User',
       password: adminPassword,
       age: 28,
@@ -175,7 +175,7 @@ async function main() {
 
     const user = await prisma.user.create({
       data: {
-        email: `user${i + 1}@jaipalesports.com`,
+        email: `user${i + 1}@nexusarena.com`,
         name: name,
       password: userPassword,
         age: age,
@@ -445,9 +445,9 @@ async function main() {
   console.log('✅ Comprehensive database seeded successfully!')
   console.log('')
   console.log('📊 Summary:')
-  console.log(`👑 Super Admin: superadmin@jaipalesports.com / admin123`)
-  console.log(`👑 Admin: admin@jaipalesports.com / admin123`)
-  console.log(`👥 Regular Users: user1@jaipalesports.com to user20@jaipalesports.com / user123`)
+  console.log(`👑 Super Admin: superadmin@nexusarena.com / admin123`)
+  console.log(`👑 Admin: admin@nexusarena.com / admin123`)
+  console.log(`👥 Regular Users: user1@nexusarena.com to user20@nexusarena.com / user123`)
   console.log(`🏆 Tournaments: ${tournaments.length} tournaments created`)
   console.log(`📋 KYC Records: ${Math.floor(users.length * 0.7)} KYC records created`)
   console.log(`📝 Registrations: Multiple registrations per user`)
@@ -456,7 +456,7 @@ async function main() {
   console.log(`💰 Payouts: Prize money for completed tournaments`)
   console.log(`📧 Notifications: 5-15 notifications per user`)
   console.log('')
-  console.log('🎮 Your Jaipal Esports platform is ready with comprehensive test data!')
+  console.log('🎮 Your Nexus Arena platform is ready with comprehensive test data!')
 }
 
 main()

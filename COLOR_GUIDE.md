@@ -1,8 +1,8 @@
-# Jaipal Esports - Gaming Green Color Guide
+# Nexus Arena - Gaming Green Color Guide
 
 ## 🎨 Color Scheme Overview
 
-Your Jaipal Esports platform now uses a **Gaming Green** color scheme that emphasizes energy, growth, and positive gaming experiences while maintaining professional trust for payment processing and user management.
+Your Nexus Arena platform now uses a **Gaming Green** color scheme that emphasizes energy, growth, and positive gaming experiences while maintaining professional trust for payment processing and user management.
 
 ## 🎯 Primary Colors
 

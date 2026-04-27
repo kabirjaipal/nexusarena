@@ -8,7 +8,7 @@ export const razorpay = new Razorpay({
 export const razorpayConfig = {
   key_id: process.env.RAZORPAY_KEY_ID!,
   currency: "INR",
-  name: "Jaipal Esports",
+  name: "Nexus Arena",
   description: "Tournament Registration",
   theme: {
     color: "#2563eb"

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     const testUser = await prisma.user.findFirst({
       where: { 
         email: {
-          contains: "@jaipalesports.com"
+          contains: "@nexusarena.com"
         }
       }
     })

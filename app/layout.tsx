@@ -15,12 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jaipal Esports - Premier Gaming Tournaments",
+  title: "Nexus Arena - Premier Gaming Tournaments",
   description: "Join India's premier eSports platform for PUBG, Free Fire, and more. Compete for real prizes in legal, regulated tournaments.",
   keywords: ["esports", "gaming", "tournaments", "PUBG", "Free Fire", "BGMI", "India"],
-  authors: [{ name: "Jaipal Esports" }],
+  authors: [{ name: "Nexus Arena" }],
   openGraph: {
-    title: "Jaipal Esports - Premier Gaming Tournaments",
+    title: "Nexus Arena - Premier Gaming Tournaments",
     description: "Join India's premier eSports platform for PUBG, Free Fire, and more.",
     type: "website",
   },

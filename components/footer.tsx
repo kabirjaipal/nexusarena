@@ -9,7 +9,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Gamepad2 className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">Jaipal Esports</span>
+              <span className="text-xl font-bold">Nexus Arena</span>
             </div>
             <p className="text-sm text-muted-foreground">
               India&apos;s premier eSports platform for legal, regulated gaming tournaments.
@@ -102,7 +102,7 @@ export function Footer() {
         <div className="border-t mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-muted-foreground">
-              © 2024 Jaipal Esports. All rights reserved.
+              © 2024 Nexus Arena. All rights reserved.
             </div>
             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center space-x-1">
@@ -111,7 +111,7 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-1">
                 <Mail className="w-4 h-4" />
-                <span>support@jaipalesports.com</span>
+                <span>support@nexusarena.com</span>
               </div>
             </div>
           </div>

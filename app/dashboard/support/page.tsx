@@ -26,7 +26,7 @@ export default function SupportPage() {
     },
     {
       question: "I'm facing technical issues during a match. What should I do?",
-      answer: "Please contact our support team immediately via the WhatsApp support link or email us at support@jaipalesports.com with your match ID and a screenshot of the issue."
+      answer: "Please contact our support team immediately via the WhatsApp support link or email us at support@nexusarena.com with your match ID and a screenshot of the issue."
     }
   ]
 
@@ -51,7 +51,7 @@ export default function SupportPage() {
             <CardDescription>Get a response within 24 hours</CardDescription>
           </CardHeader>
           <CardContent className="text-center">
-            <p className="font-semibold">support@jaipalesports.com</p>
+            <p className="font-semibold">support@nexusarena.com</p>
             <Button variant="outline" className="mt-4 w-full">Email Us</Button>
           </CardContent>
         </Card>

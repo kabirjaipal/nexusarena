@@ -189,7 +189,7 @@ export default function TournamentDetailPage() {
           key: key,
           amount: amount,
           currency: currency,
-          name: 'Jaipal Esports',
+          name: 'Nexus Arena',
           description: `Registration for ${tournament.title}`,
           order_id: orderId,
           handler: async function (response: any) {

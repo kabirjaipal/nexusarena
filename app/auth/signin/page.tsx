@@ -69,7 +69,7 @@ function SignInForm() {
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <Gamepad2 className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold">Jaipal Esports</span>
+            <span className="text-2xl font-bold">Nexus Arena</span>
           </div>
           <CardTitle className="text-2xl text-center">Welcome back</CardTitle>
           <CardDescription className="text-center">

@@ -81,7 +81,7 @@ function ResetPasswordForm() {
           <CardHeader className="space-y-1 text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
               <Gamepad2 className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold">Jaipal Esports</span>
+              <span className="text-2xl font-bold">Nexus Arena</span>
             </div>
             <div className="flex justify-center mb-4">
               <CheckCircle className="h-16 w-16 text-success" />
@@ -110,7 +110,7 @@ function ResetPasswordForm() {
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <Gamepad2 className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold">Jaipal Esports</span>
+            <span className="text-2xl font-bold">Nexus Arena</span>
           </div>
           <CardTitle className="text-2xl text-center">Reset password</CardTitle>
           <CardDescription className="text-center">

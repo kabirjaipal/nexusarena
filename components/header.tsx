@@ -35,7 +35,7 @@ export function Header() {
         <Link href="/" className="flex items-center space-x-2">
           <Gamepad2 className="h-8 w-8 text-primary" />
           <div className="flex flex-col">
-            <span className="text-xl font-bold text-foreground">Jaipal Esports</span>
+            <span className="text-xl font-bold text-foreground">Nexus Arena</span>
             <span className="text-xs text-muted-foreground">PREMIER GAMING</span>
           </div>
         </Link>
@@ -152,7 +152,7 @@ export function Header() {
                   <Link href="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
                     <Gamepad2 className="h-8 w-8 text-primary" />
                     <div className="flex flex-col">
-                      <span className="text-xl font-bold text-foreground">Jaipal Esports</span>
+                      <span className="text-xl font-bold text-foreground">Nexus Arena</span>
                       <span className="text-xs text-muted-foreground">PREMIER GAMING</span>
                     </div>
                   </Link>
