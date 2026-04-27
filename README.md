@@ -35,35 +35,69 @@ Nexus Arena is a production-grade, end-to-end tournament orchestration platform 
 
 ## 🚦 Getting Started
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/nexus-arena.git
-   ```
+Follow these steps to get the project up and running on your local machine.
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+### 1. Prerequisites
+- Node.js 18.x or later
+- PostgreSQL database
+- npm or pnpm
 
-3. **Set up Environment Variables**:
-   Create a `.env` file with:
-   - `DATABASE_URL`
-   - `NEXTAUTH_SECRET`
-   - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`
-   - `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET`
+### 2. Installation
+```bash
+# Clone the repository
+git clone https://github.com/kabirjaipal/nexusarena.git
+cd nexusarena
 
-4. **Initialize Database**:
-   ```bash
-   npx prisma db push
-   npx prisma generate
-   npx prisma db seed
-   ```
+# Install dependencies
+npm install
+```
 
-5. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
+### 3. Environment Setup
+Copy the example environment file and fill in your credentials:
+```bash
+cp .env.example .env
+```
+*See the [Environment Variables](#-environment-variables) section for more details.*
+
+### 4. Database Initialization
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Run migrations to create tables
+npx prisma migrate dev --name init
+
+# (Optional) Seed the database with initial data
+npm run db:seed
+```
+
+### 5. Start Development Server
+```bash
+npm run dev
+```
+The application will be available at `http://localhost:3000`.
+
+## 🔑 Environment Variables
+
+The application requires several environment variables to function correctly. You can find these in `.env.example`.
+
+| Variable | Description |
+| :--- | :--- |
+| `DATABASE_URL` | PostgreSQL connection string |
+| `NEXTAUTH_SECRET` | Secret used to hash tokens, sign/encrypt cookies |
+| `NEXTAUTH_URL` | The base URL of your site (e.g., `http://localhost:3000`) |
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret |
+| `DISCORD_CLIENT_ID` | Discord OAuth client ID |
+| `DISCORD_CLIENT_SECRET` | Discord OAuth client secret |
+| `RAZORPAY_KEY_ID` | Razorpay API key ID |
+| `RAZORPAY_KEY_SECRET` | Razorpay API key secret |
+| `SMTP_USERNAME` | SMTP server username for emails |
+| `SMTP_PASSWORD` | SMTP server password/app password |
+| `EMAIL_FROM_ADDRESS` | Email address to send from |
+| `NEXT_PUBLIC_APP_URL` | The public URL of the application |
+| `NEXT_PUBLIC_APP_NAME` | The display name of the application |
 
 ---
 
-*Built with ❤️ by [Your Name]*
+*Built with ❤️ by [Kabir Jaipal](https://github.com/kabirjaipal)*
