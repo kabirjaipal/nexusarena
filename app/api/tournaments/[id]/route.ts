@@ -29,6 +29,11 @@ export async function GET(
           }
         },
         matches: {
+          include: {
+            player1: { select: { name: true, image: true } },
+            player2: { select: { name: true, image: true } },
+            winner: { select: { name: true, image: true } }
+          },
           orderBy: [
             { round: 'asc' },
             { matchNumber: 'asc' }
@@ -78,8 +83,13 @@ export async function GET(
         round: match.round,
         matchNumber: match.matchNumber,
         player1Id: match.player1Id,
+        player1Name: match.player1?.name || "TBD",
+        player1Image: match.player1?.image,
         player2Id: match.player2Id,
+        player2Name: match.player2?.name || "TBD",
+        player2Image: match.player2?.image,
         winnerId: match.winnerId,
+        winnerName: match.winner?.name,
         status: match.status,
         scheduledAt: match.scheduledAt?.toISOString(),
         startedAt: match.startedAt?.toISOString(),

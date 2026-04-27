@@ -10,6 +10,7 @@ import { Calendar, Users, Trophy, Gamepad2, Zap, Clock, Loader2, MapPin, User, A
 import { formatDate, formatDateTime } from "@/lib/date-utils"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
+import { BracketView } from "@/components/bracket-view"
 
 interface TournamentDetail {
   id: string
@@ -42,8 +43,13 @@ interface TournamentDetail {
     round: number
     matchNumber: number
     player1Id?: string
+    player1Name: string
+    player1Image?: string
     player2Id?: string
+    player2Name: string
+    player2Image?: string
     winnerId?: string
+    winnerName?: string
     status: string
     scheduledAt?: string
     startedAt?: string
@@ -304,94 +310,97 @@ export default function TournamentDetailPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Description */}
-            <Card>
-              <CardHeader>
-                <CardTitle>About This Tournament</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground whitespace-pre-line">
-                  {tournament.description}
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Tournament Details */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Tournament Details</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-4 w-4 text-primary" />
-                    <div>
-                      <p className="text-sm font-medium">Start Date</p>
-                      <p className="text-sm text-muted-foreground">{formatDateTime(startDate)}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Clock className="h-4 w-4 text-primary" />
-                    <div>
-                      <p className="text-sm font-medium">End Date</p>
-                      <p className="text-sm text-muted-foreground">{formatDateTime(endDate)}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4 text-accent" />
-                    <div>
-                      <p className="text-sm font-medium">Players</p>
-                      <p className="text-sm text-muted-foreground">
-                        {tournament.currentPlayers}/{tournament.maxPlayers} registered
+              <Tabs defaultValue="overview" className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="overview">Overview</TabsTrigger>
+                  <TabsTrigger value="bracket">Bracket</TabsTrigger>
+                  <TabsTrigger value="matches">Matches</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="overview" className="mt-6 space-y-6">
+                  {/* Description */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>About This Tournament</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground whitespace-pre-line">
+                        {tournament.description}
                       </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Trophy className="h-4 w-4 text-warning" />
-                    <div>
-                      <p className="text-sm font-medium">Prize Pool</p>
-                      <p className="text-sm text-muted-foreground">₹{tournament.prizePool.toLocaleString()}</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                    </CardContent>
+                  </Card>
 
-            {/* Rules */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Tournament Rules</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="whitespace-pre-line text-muted-foreground">
-                  {tournament.rules}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Matches */}
-            {tournament.matches.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Matches</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {tournament.matches.map((match) => (
-                      <div key={match.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <p className="font-medium">Round {match.round} - Match {match.matchNumber}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {match.scheduledAt && formatDateTime(new Date(match.scheduledAt))}
-                          </p>
-                        </div>
-                        {getMatchStatusBadge(match.status)}
+                  {/* Rules */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Tournament Rules</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="whitespace-pre-line text-muted-foreground">
+                        {tournament.rules}
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="bracket" className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Tournament Bracket</CardTitle>
+                      <CardDescription>Real-time tournament progression</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      {tournament.matches.length > 0 ? (
+                        <BracketView matches={tournament.matches as any} />
+                      ) : (
+                        <div className="text-center py-12 text-muted-foreground">
+                          Bracket will be generated once registration closes.
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="matches" className="mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Match Details</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {tournament.matches.length > 0 ? (
+                          tournament.matches.map((match) => (
+                            <div key={match.id} className="flex flex-col p-4 border rounded-lg gap-4">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+                                  Round {match.round} • Match {match.matchNumber}
+                                </span>
+                                {getMatchStatusBadge(match.status)}
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <div className={`flex-1 text-center p-2 rounded ${match.winnerId === match.player1Id ? 'bg-primary/10 font-bold' : ''}`}>
+                                  {match.player1Name}
+                                </div>
+                                <div className="px-4 text-xs font-bold opacity-50">VS</div>
+                                <div className={`flex-1 text-center p-2 rounded ${match.winnerId === match.player2Id ? 'bg-primary/10 font-bold' : ''}`}>
+                                  {match.player2Name}
+                                </div>
+                              </div>
+                              {match.scheduledAt && (
+                                <div className="text-center text-xs text-muted-foreground">
+                                  Scheduled: {formatDateTime(new Date(match.scheduledAt))}
+                                </div>
+                              )}
+                            </div>
+                          ))
+                        ) : (
+                          <div className="text-center py-8 text-muted-foreground">No matches scheduled.</div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
           </div>
 
           {/* Sidebar */}

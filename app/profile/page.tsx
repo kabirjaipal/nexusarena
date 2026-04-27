@@ -22,7 +22,12 @@ import {
   Camera,
   Lock,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Trophy,
+  Zap,
+  Target,
+  BarChart3,
+  DollarSign
 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -54,11 +59,20 @@ interface KYCData {
   verifiedAt: string | null
 }
 
+interface CareerStats {
+  totalMatches: number
+  matchWins: number
+  winRate: number
+  totalWinnings: number
+  tournamentCount: number
+}
+
 export default function ProfilePage() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [kycData, setKycData] = useState<KYCData | null>(null)
+  const [statsData, setStatsData] = useState<CareerStats | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -100,6 +114,13 @@ export default function ProfilePage() {
       if (kycResponse.ok) {
         const kycData = await kycResponse.json()
         setKycData(kycData)
+      }
+
+      // Fetch Stats data
+      const statsResponse = await fetch("/api/profile/stats")
+      if (statsResponse.ok) {
+        const statsData = await statsResponse.json()
+        setStatsData(statsData)
       }
     } catch (error) {
       console.error("Error fetching profile data:", error)
@@ -206,6 +227,7 @@ export default function ProfilePage() {
         <Tabs defaultValue="personal" className="space-y-6">
           <TabsList>
             <TabsTrigger value="personal">Personal Information</TabsTrigger>
+            <TabsTrigger value="stats">Career Stats</TabsTrigger>
             <TabsTrigger value="kyc">KYC Verification</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
           </TabsList>
@@ -363,6 +385,87 @@ export default function ProfilePage() {
                     </Button>
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="stats" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Total Matches</p>
+                      <p className="text-2xl font-bold">{statsData?.totalMatches || 0}</p>
+                    </div>
+                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                      <Target className="h-5 w-5" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Match Wins</p>
+                      <p className="text-2xl font-bold text-success">{statsData?.matchWins || 0}</p>
+                    </div>
+                    <div className="p-2 bg-success/10 rounded-lg text-success">
+                      <Trophy className="h-5 w-5" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Win Rate</p>
+                      <p className="text-2xl font-bold text-warning">{statsData?.winRate || 0}%</p>
+                    </div>
+                    <div className="p-2 bg-warning/10 rounded-lg text-warning">
+                      <Zap className="h-5 w-5" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Total Winnings</p>
+                      <p className="text-2xl font-bold text-primary">₹{statsData?.totalWinnings.toLocaleString() || 0}</p>
+                    </div>
+                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                      <DollarSign className="h-5 w-5" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5" />
+                  Performance Summary
+                </CardTitle>
+                <CardDescription>Historical performance across all tournaments</CardDescription>
+              </CardHeader>
+              <CardContent>
+                 <div className="space-y-4">
+                    <div className="flex justify-between items-center p-3 border rounded-lg bg-muted/20">
+                       <span className="text-sm font-medium">Tournaments Participated</span>
+                       <span className="font-bold">{statsData?.tournamentCount || 0}</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 border rounded-lg bg-muted/20">
+                       <span className="text-sm font-medium">Average Matches per Tournament</span>
+                       <span className="font-bold">
+                          {statsData?.tournamentCount ? (statsData.totalMatches / statsData.tournamentCount).toFixed(1) : 0}
+                       </span>
+                    </div>
+                 </div>
               </CardContent>
             </Card>
           </TabsContent>

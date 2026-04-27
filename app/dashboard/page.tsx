@@ -202,18 +202,20 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Winnings</CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">₹{stats.totalWinnings.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">
-                Prize money earned
-              </p>
-            </CardContent>
-          </Card>
+          <Link href="/dashboard/wallet" className="block">
+            <Card className="hover:border-primary transition-colors cursor-pointer">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Winnings</CardTitle>
+                <DollarSign className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">₹{stats.totalWinnings.toLocaleString()}</div>
+                <p className="text-xs text-muted-foreground">
+                  View wallet & withdraw
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -376,29 +378,47 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              <Card className="cursor-pointer hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3">
-                    <Users className="h-8 w-8 text-primary" />
-                    <div>
-                      <h3 className="font-semibold">View Leaderboard</h3>
-                      <p className="text-sm text-muted-foreground">Check rankings</p>
+              <Link href="/leaderboard" className="block">
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <Users className="h-8 w-8 text-primary" />
+                      <div>
+                        <h3 className="font-semibold">View Leaderboard</h3>
+                        <p className="text-sm text-muted-foreground">Check global rankings</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Link>
 
-              <Card className="cursor-pointer hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3">
-                    <TrendingUp className="h-8 w-8 text-primary" />
-                    <div>
-                      <h3 className="font-semibold">View Statistics</h3>
-                      <p className="text-sm text-muted-foreground">Track your progress</p>
+              <Link href="/dashboard/wallet" className="block">
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <DollarSign className="h-8 w-8 text-primary" />
+                      <div>
+                        <h3 className="font-semibold">My Wallet</h3>
+                        <p className="text-sm text-muted-foreground">Withdraw your winnings</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              <Link href="/dashboard/support" className="block">
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <AlertCircle className="h-8 w-8 text-primary" />
+                      <div>
+                        <h3 className="font-semibold">Help & Support</h3>
+                        <p className="text-sm text-muted-foreground">Get help and view FAQs</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             </div>
           </TabsContent>
         </Tabs>

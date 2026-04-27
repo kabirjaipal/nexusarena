@@ -24,30 +24,19 @@ export async function GET(request: NextRequest) {
             title: true,
             game: true
           }
-        }
+        },
+        player1: { select: { id: true, name: true, image: true } },
+        player2: { select: { id: true, name: true, image: true } },
+        winner: { select: { id: true, name: true, image: true } }
       },
       orderBy: [
+        { tournament: { title: 'asc' } },
         { round: 'asc' },
         { matchNumber: 'asc' }
       ]
     })
 
-    // Transform data
-    const transformedMatches = matches.map(match => ({
-      id: match.id,
-      round: match.round,
-      matchNumber: match.matchNumber,
-      status: match.status,
-      scheduledAt: match.scheduledAt?.toISOString() || null,
-      startedAt: match.startedAt?.toISOString() || null,
-      endedAt: match.endedAt?.toISOString() || null,
-      tournament: match.tournament,
-      player1: match.player1Id ? { id: match.player1Id, name: 'Player 1' } : null,
-      player2: match.player2Id ? { id: match.player2Id, name: 'Player 2' } : null,
-      winner: match.winnerId ? { id: match.winnerId, name: 'Winner' } : null
-    }))
-
-    return NextResponse.json(transformedMatches)
+    return NextResponse.json(matches)
 
   } catch (error) {
     console.error("Admin matches API error:", error)

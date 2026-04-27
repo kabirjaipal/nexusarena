@@ -47,41 +47,54 @@ export async function POST(
       return NextResponse.json({ error: "Invalid winner ID" }, { status: 400 })
     }
 
-    // Update match status to completed
+    // Update match status to completed and set winner
     const updatedMatch = await prisma.match.update({
       where: { id: matchId },
       data: {
         status: 'COMPLETED',
         endedAt: new Date(),
         winnerId: winnerId
-      },
-      include: {
-        tournament: {
-          select: {
-            id: true,
-            title: true,
-            game: true
-          }
-        }
       }
     })
 
-    // Transform data
-    const transformedMatch = {
-      id: updatedMatch.id,
-      round: updatedMatch.round,
-      matchNumber: updatedMatch.matchNumber,
-      status: updatedMatch.status,
-      scheduledAt: updatedMatch.scheduledAt?.toISOString() || null,
-      startedAt: updatedMatch.startedAt?.toISOString() || null,
-      endedAt: updatedMatch.endedAt?.toISOString() || null,
-      tournament: updatedMatch.tournament,
-      player1: updatedMatch.player1Id ? { id: updatedMatch.player1Id, name: 'Player 1' } : null,
-      player2: updatedMatch.player2Id ? { id: updatedMatch.player2Id, name: 'Player 2' } : null,
-      winner: updatedMatch.winnerId ? { id: updatedMatch.winnerId, name: 'Winner' } : null
+    // --- BRACKET ADVANCEMENT LOGIC ---
+    const nextRound = updatedMatch.round + 1
+    const nextMatchNumber = Math.ceil(updatedMatch.matchNumber / 2)
+    const isPlayer1InNextMatch = updatedMatch.matchNumber % 2 !== 0
+
+    // Find if there's a next match
+    const nextMatch = await prisma.match.findFirst({
+      where: {
+        tournamentId: match.tournamentId,
+        round: nextRound,
+        matchNumber: nextMatchNumber
+      }
+    })
+
+    if (nextMatch) {
+      // Advance winner to the next match
+      await prisma.match.update({
+        where: { id: nextMatch.id },
+        data: isPlayer1InNextMatch 
+          ? { player1Id: winnerId } 
+          : { player2Id: winnerId }
+      })
+    } else {
+      // This was likely the final. Check if we should mark tournament as completed
+      // (Optional: handle prize distribution here)
     }
 
-    return NextResponse.json(transformedMatch)
+    // Notify the winner
+    await prisma.notification.create({
+      data: {
+        userId: winnerId,
+        title: "Match Victory!",
+        message: `Congratulations! You won your match in ${match.tournament.title}. Check the bracket for your next opponent.`,
+        type: "SUCCESS"
+      }
+    })
+
+    return NextResponse.json({ success: true, match: updatedMatch })
 
   } catch (error) {
     console.error("End match API error:", error)

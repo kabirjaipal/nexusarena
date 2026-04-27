@@ -37,6 +37,10 @@ model User {
   payouts       Payout[]
   notifications Notification[]
   kyc           UserKYC?
+  matchesAsP1   Match[]   @relation("Player1")
+  matchesAsP2   Match[]   @relation("Player2")
+  matchesWon    Match[]   @relation("Winner")
+  withdrawals   WithdrawalRequest[]
 
   @@map("m_users")
 }
@@ -130,6 +134,7 @@ model Tournament {
   // Relations
   registrations Registration[]
   matches       Match[]
+  payouts       Payout[]
 
   @@map("t_tournaments")
 }
@@ -159,6 +164,8 @@ model Match {
   player1Id    String?
   player2Id    String?
   winnerId     String?
+  roomId       String?     // For BGMI/Free Fire private lobbies
+  password     String?     // For BGMI/Free Fire private lobbies
   status       MatchStatus @default(SCHEDULED)
   scheduledAt  DateTime?
   startedAt    DateTime?
@@ -168,6 +175,9 @@ model Match {
 
   // Relations
   tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  player1    User?      @relation("Player1", fields: [player1Id], references: [id])
+  player2    User?      @relation("Player2", fields: [player2Id], references: [id])
+  winner     User?      @relation("Winner", fields: [winnerId], references: [id])
 
   @@map("t_matches")
 }
@@ -207,12 +217,36 @@ model Payout {
   updatedAt     DateTime     @updatedAt
 
   // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
 
   @@map("p_payouts")
 }
 
+model WithdrawalRequest {
+  id          String           @id @default(cuid())
+  userId      String
+  amount      Decimal          @db.Decimal(10, 2)
+  status      WithdrawalStatus @default(PENDING)
+  method      String?          // Bank Transfer, UPI, etc.
+  details     String?          // Account info
+  processedAt DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("p_withdrawal_requests")
+}
+
 // Enums
+enum WithdrawalStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  REJECTED
+}
 enum UserRole {
   USER
   ADMIN

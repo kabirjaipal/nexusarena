@@ -21,7 +21,8 @@ import {
   Bell,
   Search,
   ChevronRight,
-  User
+  User,
+  Shield
 } from "lucide-react"
 import { signOut } from "next-auth/react"
 
@@ -47,6 +48,12 @@ const adminNavItems = [
     href: "/admin/users",
     icon: Users,
     description: "User management"
+  },
+  {
+    title: "KYC Review",
+    href: "/admin/kyc",
+    icon: Shield,
+    description: "Identity verification"
   },
   {
     title: "Payments",
